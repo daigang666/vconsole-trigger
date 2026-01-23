@@ -1,0 +1,5 @@
+# 发布到npm官方源
+registry=https://registry.npmjs.org/
+
+# 如果使用私有npm源，请修改为你的私有源地址
+# registry=https://your-private-registry.com/
