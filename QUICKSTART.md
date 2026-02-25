@@ -19,8 +19,8 @@ import { initVConsoleTrigger } from '@gangdai/vconsole-trigger';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 
-// 初始化 vConsole 触发器
-initVConsoleTrigger();
+// await 确保 vConsole 就绪后再渲染，不会漏掉早期 log
+await initVConsoleTrigger();
 
 ReactDOM.createRoot(document.getElementById('root')!).render(<App />);
 ```
@@ -34,8 +34,8 @@ import { initVConsoleTrigger } from '@gangdai/vconsole-trigger';
 import { createApp } from 'vue';
 import App from './App.vue';
 
-// 初始化 vConsole 触发器
-initVConsoleTrigger();
+// await 确保 vConsole 就绪后再挂载应用
+await initVConsoleTrigger();
 
 createApp(App).mount('#app');
 ```
@@ -47,8 +47,8 @@ createApp(App).mount('#app');
 ```typescript
 import { initVConsoleTrigger } from '@gangdai/vconsole-trigger';
 
-// 初始化 vConsole 触发器
-initVConsoleTrigger();
+// await 确保 vConsole 就绪
+await initVConsoleTrigger();
 
 export const request = {
   // ... 你的请求配置
@@ -95,7 +95,7 @@ window.VConsoleDebug.close();
 ```typescript
 import { initVConsoleTrigger } from '@gangdai/vconsole-trigger';
 
-initVConsoleTrigger({
+await initVConsoleTrigger({
   // 自定义 URL 参数键名
   queryKeys: ['debug', 'vconsole'],
 
@@ -129,7 +129,7 @@ initVConsoleTrigger({
 
 A: 检查以下几点：
 - 确认已正确安装 `vconsole` 依赖
-- 确认 `initVConsoleTrigger()` 在应用启动时被调用
+- 确认 `await initVConsoleTrigger()` 在应用启动时被调用
 - 检查浏览器控制台是否有错误信息
 - 尝试使用不同的触发方式
 
@@ -139,7 +139,7 @@ A: 你可以根据环境变量条件性地初始化：
 
 ```typescript
 if (import.meta.env.MODE !== 'production') {
-  initVConsoleTrigger();
+  await initVConsoleTrigger();
 }
 ```
 
@@ -150,7 +150,7 @@ if (import.meta.env.MODE !== 'production') {
 A: 通过配置选项调整热区大小：
 
 ```typescript
-initVConsoleTrigger({
+await initVConsoleTrigger({
   hotzoneWidthRatio: 0.5,   // 屏幕左侧 50%
   hotzoneHeightRatio: 0.8,  // 屏幕底部 20%
   tapTargetCount: 3,        // 连点 3 次即可触发

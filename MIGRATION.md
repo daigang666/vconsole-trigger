@@ -54,7 +54,7 @@ pnpm add @gangdai/vconsole-trigger vconsole
 import { initVConsoleTrigger } from '@gangdai/vconsole-trigger';
 
 // 使用相同的配置
-initVConsoleTrigger({
+await initVConsoleTrigger({
   queryKeys: ['debug_vconsole', 'iam_debug', 'vconsole'],
   storageKey: 'IAM_LOGIN_VCONSOLE_ENABLED',
   globalApiName: 'IAMDebugConsole',
@@ -120,7 +120,7 @@ if (process.env.NODE_ENV !== 'production') {
 import { initVConsoleTrigger } from '@gangdai/vconsole-trigger';
 
 // 支持多种触发方式，不仅限于环境判断
-initVConsoleTrigger();
+await initVConsoleTrigger();
 ```
 
 ### 从 URL 参数触发迁移
@@ -140,7 +140,7 @@ if (window.location.search.includes('debug')) {
 ```typescript
 import { initVConsoleTrigger } from '@gangdai/vconsole-trigger';
 
-initVConsoleTrigger({
+await initVConsoleTrigger({
   queryKeys: ['debug'],
 });
 ```
@@ -163,7 +163,7 @@ if (window.location.search.includes('debug')) {
 import { initVConsoleTrigger } from '@gangdai/vconsole-trigger';
 
 // vConsole 提供类似功能，且更轻量
-initVConsoleTrigger({
+await initVConsoleTrigger({
   queryKeys: ['debug'],
 });
 ```
@@ -186,7 +186,7 @@ initVConsoleTrigger({
 A: 可以，通过配置 `queryKeys` 选项保持兼容：
 
 ```typescript
-initVConsoleTrigger({
+await initVConsoleTrigger({
   queryKeys: ['debug_vconsole', 'iam_debug', 'vconsole'], // 保留原有参数
 });
 ```
@@ -196,7 +196,7 @@ initVConsoleTrigger({
 A: 配置 `storageKey` 选项保持一致：
 
 ```typescript
-initVConsoleTrigger({
+await initVConsoleTrigger({
   storageKey: 'IAM_LOGIN_VCONSOLE_ENABLED', // 使用原有键名
 });
 ```
@@ -206,7 +206,7 @@ initVConsoleTrigger({
 A: 配置 `globalApiName` 选项：
 
 ```typescript
-initVConsoleTrigger({
+await initVConsoleTrigger({
   globalApiName: 'IAMDebugConsole', // 使用原有名称
 });
 ```

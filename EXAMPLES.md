@@ -10,7 +10,7 @@
 import { initVConsoleTrigger } from '@gangdai/vconsole-trigger';
 
 // 使用默认配置
-initVConsoleTrigger();
+await initVConsoleTrigger();
 ```
 
 ## 框架集成示例
@@ -26,7 +26,7 @@ import App from './App';
 import './index.css';
 
 // 初始化 vConsole 触发器
-initVConsoleTrigger({
+await initVConsoleTrigger({
   theme: 'dark',
   queryKeys: ['debug', 'vconsole'],
 });
@@ -45,7 +45,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 import { initVConsoleTrigger } from '@gangdai/vconsole-trigger';
 
 // 在应用启动时初始化
-initVConsoleTrigger({
+await initVConsoleTrigger({
   storageKey: 'IAM_VCONSOLE_ENABLED',
   globalApiName: 'IAMDebugConsole',
 });
@@ -65,7 +65,7 @@ import { initVConsoleTrigger } from '@gangdai/vconsole-trigger';
 import App from './App.vue';
 
 // 初始化 vConsole 触发器
-initVConsoleTrigger();
+await initVConsoleTrigger();
 
 createApp(App).mount('#app');
 ```
@@ -97,7 +97,7 @@ export default MyApp;
 ```typescript
 import { initVConsoleTrigger } from '@gangdai/vconsole-trigger';
 
-initVConsoleTrigger({
+await initVConsoleTrigger({
   // 扩大触发区域到屏幕左侧 50%
   hotzoneWidthRatio: 0.5,
   // 底部 30% 区域
@@ -115,7 +115,7 @@ initVConsoleTrigger({
 import { initVConsoleTrigger } from '@gangdai/vconsole-trigger';
 
 // 只允许通过 URL 参数和 API 触发，禁用手势和快捷键
-initVConsoleTrigger({
+await initVConsoleTrigger({
   enableGesture: false,
   enableShortcut: false,
 });
@@ -127,7 +127,7 @@ initVConsoleTrigger({
 import { initVConsoleTrigger } from '@gangdai/vconsole-trigger';
 
 // 为不同项目使用不同的配置
-initVConsoleTrigger({
+await initVConsoleTrigger({
   queryKeys: ['project_a_debug'],
   storageKey: 'PROJECT_A_VCONSOLE',
   globalApiName: 'ProjectADebug',
@@ -147,7 +147,7 @@ const trigger = new VConsoleTrigger({
 });
 
 // 在需要时初始化
-trigger.init();
+await trigger.init();
 
 // 手动打开
 document.getElementById('debug-btn')?.addEventListener('click', async () => {
@@ -166,7 +166,7 @@ document.getElementById('close-btn')?.addEventListener('click', () => {
 import { initVConsoleTrigger } from '@gangdai/vconsole-trigger';
 
 // 初始化时指定全局 API 名称
-initVConsoleTrigger({
+await initVConsoleTrigger({
   globalApiName: 'MyDebug',
 });
 
@@ -196,12 +196,12 @@ import { initVConsoleTrigger } from '@gangdai/vconsole-trigger';
 
 // Vite 项目
 if (import.meta.env.MODE !== 'production') {
-  initVConsoleTrigger();
+  await initVConsoleTrigger();
 }
 
 // Create React App 项目
 if (process.env.NODE_ENV !== 'production') {
-  initVConsoleTrigger();
+  await initVConsoleTrigger();
 }
 ```
 
@@ -216,7 +216,7 @@ async function initDebugTools() {
 
   // 仅为管理员或测试人员启用
   if (user.role === 'admin' || user.role === 'tester') {
-    initVConsoleTrigger();
+    await initVConsoleTrigger();
   }
 }
 
@@ -230,7 +230,7 @@ import { initVConsoleTrigger } from '@gangdai/vconsole-trigger';
 
 // 仅在测试域名启用
 if (window.location.hostname.includes('test') || window.location.hostname.includes('dev')) {
-  initVConsoleTrigger();
+  await initVConsoleTrigger();
 }
 ```
 
@@ -249,7 +249,7 @@ Sentry.init({
 });
 
 // 初始化 vConsole 触发器
-initVConsoleTrigger({
+await initVConsoleTrigger({
   theme: 'dark',
 });
 ```
@@ -265,7 +265,7 @@ if (window.location.search.includes('eruda')) {
   import('eruda').then((eruda) => eruda.default.init());
 } else {
   // 使用 vConsole
-  initVConsoleTrigger();
+  await initVConsoleTrigger();
 }
 ```
 
@@ -277,7 +277,7 @@ if (window.location.search.includes('eruda')) {
 import { initVConsoleTrigger } from '@gangdai/vconsole-trigger';
 
 // 初始化
-initVConsoleTrigger({
+await initVConsoleTrigger({
   globalApiName: 'WebViewDebug',
 });
 
@@ -302,7 +302,7 @@ if (window.webkit?.messageHandlers?.debugHandler) {
 import { initVConsoleTrigger } from '@gangdai/vconsole-trigger';
 
 // 初始化
-initVConsoleTrigger();
+await initVConsoleTrigger();
 
 // 监听主进程的调试命令
 window.electron?.ipcRenderer.on('toggle-debug', () => {
@@ -333,7 +333,7 @@ const options: VConsoleTriggerOptions = {
 };
 
 const trigger = new VConsoleTrigger(options);
-trigger.init();
+await trigger.init();
 
 // 扩展 Window 类型
 declare global {
@@ -351,7 +351,7 @@ declare global {
 import { initVConsoleTrigger } from '@gangdai/vconsole-trigger';
 
 // 初始化
-initVConsoleTrigger();
+await initVConsoleTrigger();
 
 // 监听 sessionStorage 变化来检测激活
 window.addEventListener('storage', (e) => {
@@ -381,7 +381,7 @@ class CustomVConsoleTrigger extends VConsoleTrigger {
 }
 
 const trigger = new CustomVConsoleTrigger();
-trigger.init();
+await trigger.init();
 ```
 
 ## 更多示例

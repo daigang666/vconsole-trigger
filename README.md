@@ -35,8 +35,8 @@ yarn add @gangdai/vconsole-trigger vconsole
 ```typescript
 import { initVConsoleTrigger } from '@gangdai/vconsole-trigger';
 
-// 使用默认配置初始化
-initVConsoleTrigger();
+// 使用默认配置初始化，await 确保 vConsole 加载完成后再执行后续逻辑
+await initVConsoleTrigger();
 ```
 
 ### 自定义配置
@@ -44,7 +44,7 @@ initVConsoleTrigger();
 ```typescript
 import { initVConsoleTrigger } from '@gangdai/vconsole-trigger';
 
-initVConsoleTrigger({
+await initVConsoleTrigger({
   queryKeys: ['debug', 'vconsole'],
   storageKey: 'MY_APP_VCONSOLE',
   theme: 'light',
@@ -63,8 +63,8 @@ const trigger = new VConsoleTrigger({
   theme: 'dark',
 });
 
-// 初始化
-trigger.init();
+// 初始化（异步，await 可确保 vConsole 就绪）
+await trigger.init();
 
 // 手动打开
 await trigger.open();
@@ -177,9 +177,9 @@ interface VConsoleTriggerOptions {
 
 ## API
 
-### `initVConsoleTrigger(options?: VConsoleTriggerOptions): VConsoleTrigger`
+### `initVConsoleTrigger(options?: VConsoleTriggerOptions): Promise<VConsoleTrigger>`
 
-创建并初始化 vConsole 触发器的便捷函数。
+创建并初始化 vConsole 触发器的便捷函数。当 URL 参数或 sessionStorage 中存在调试标记时，`await` 可确保 vConsole 加载完成后再 resolve。
 
 ### `VConsoleTrigger`
 
@@ -187,7 +187,7 @@ vConsole 触发器类。
 
 #### 方法
 
-- `init(): void` - 初始化触发器
+- `init(): Promise<void>` - 初始化触发器，当存在调试标记时会等待 vConsole 加载完成
 - `open(): Promise<void>` - 手动打开 vConsole
 - `close(): void` - 手动关闭 vConsole
 
@@ -199,8 +199,8 @@ vConsole 触发器类。
 // main.tsx 或 index.tsx
 import { initVConsoleTrigger } from '@gangdai/vconsole-trigger';
 
-// 在应用启动时初始化
-initVConsoleTrigger();
+// await 确保 vConsole 就绪后再渲染，不会漏掉早期 log
+await initVConsoleTrigger();
 
 ReactDOM.createRoot(document.getElementById('root')!).render(<App />);
 ```
@@ -211,8 +211,8 @@ ReactDOM.createRoot(document.getElementById('root')!).render(<App />);
 // main.ts
 import { initVConsoleTrigger } from '@gangdai/vconsole-trigger';
 
-// 在应用启动时初始化
-initVConsoleTrigger();
+// await 确保 vConsole 就绪后再挂载应用
+await initVConsoleTrigger();
 
 createApp(App).mount('#app');
 ```
@@ -222,7 +222,7 @@ createApp(App).mount('#app');
 ```html
 <script type="module">
   import { initVConsoleTrigger } from '@gangdai/vconsole-trigger';
-  initVConsoleTrigger();
+  await initVConsoleTrigger();
 </script>
 ```
 
