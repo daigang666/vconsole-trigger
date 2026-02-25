@@ -211,8 +211,9 @@ export class VConsoleTrigger {
 
   /**
    * @description 初始化vConsole触发器
+   * @returns {Promise<void>} 当URL参数或sessionStorage中存在调试标记时，会等待vConsole加载完成后再resolve
    */
-  public init(): void {
+  public async init(): Promise<void> {
     if (typeof window === 'undefined' || this.initDone) {
       return;
     }
@@ -220,11 +221,11 @@ export class VConsoleTrigger {
     this.initDone = true;
     this.registerWindowBridge();
 
-    // 检查URL参数或sessionStorage
+    // 检查URL参数或sessionStorage，await确保vConsole加载完成后再继续
     if (this.shouldEnableFromQuery()) {
-      void this.enableVConsole('query');
+      await this.enableVConsole('query');
     } else if (this.shouldEnableFromStorage()) {
-      void this.enableVConsole('storage');
+      await this.enableVConsole('storage');
     }
 
     // 注册键盘快捷键
@@ -258,10 +259,10 @@ export class VConsoleTrigger {
 /**
  * @description 创建并初始化vConsole触发器（便捷函数）
  * @param {VConsoleTriggerOptions} options 配置选项
- * @returns {VConsoleTrigger} 触发器实例
+ * @returns {Promise<VConsoleTrigger>} 当存在调试标记时，会等待vConsole加载完成后再resolve
  */
-export function initVConsoleTrigger(options?: VConsoleTriggerOptions): VConsoleTrigger {
+export async function initVConsoleTrigger(options?: VConsoleTriggerOptions): Promise<VConsoleTrigger> {
   const trigger = new VConsoleTrigger(options);
-  trigger.init();
+  await trigger.init();
   return trigger;
 }
